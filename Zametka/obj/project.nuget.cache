@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "sJzAbdoNxZ8=",
+  "success": true,
+  "projectFilePath": "/Users/konstantinokriashvili/RiderProjects/Project3mod_2/Zametka/Zametka.csproj",
+  "expectedPackageFiles": [
+    "/Users/konstantinokriashvili/.nuget/packages/spectre.console/0.49.2-preview.0.76/spectre.console.0.49.2-preview.0.76.nupkg.sha512"
+  ],
+  "logs": []
+}

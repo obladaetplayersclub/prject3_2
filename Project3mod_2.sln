@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassLibrary1a", "ClassLibrary1a\ClassLibrary1a.csproj", "{C03D8BDB-45C5-492E-9268-2B9B849307E5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zametka", "Zametka\Zametka.csproj", "{C03D8BDB-45C5-492E-9268-2B9B849307E5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
