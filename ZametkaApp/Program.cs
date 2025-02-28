@@ -1,4 +1,5 @@
-﻿using Zametka;
+﻿using System.Linq.Expressions;
+using Zametka;
 using ZametkaMan;
 using Spectre.Console;
 using LoadFile;
@@ -17,7 +18,7 @@ internal class Program
         string defaultLoadPath = (loadChoice == "2") ? "notes.json" : "notes.csv";
         string loadFilePath = AskForFilePath($"[blue]Введите путь к файлу для загрузки заметок (по умолчанию {defaultLoadPath}):[/]", defaultLoadPath);
         
-        AnsiConsole.MarkupLine("[blue]Выберите формат файла для сохранения заметок:");
+        AnsiConsole.MarkupLine("[blue]Выберите формат файла для сохранения заметок:[/]");
         AnsiConsole.MarkupLine("1. CSV");
         AnsiConsole.MarkupLine("2. JSON");
         string? saveChoice = Console.ReadLine();
@@ -64,10 +65,13 @@ internal class Program
                     DobZam(zametkaManager);
                     break;
                 case "4":
+                    Sort(zametkaManager);
                     break;
                 case "5":
+                    Filtr(zametkaManager);
                     break;
                 case "6":
+                    Izm(zametkaManager);
                     break;
                 case "7":
                     UdZam(zametkaManager);
@@ -82,6 +86,8 @@ internal class Program
                 case "11":
                     break;
                 case "12":
+                    zametkaManager.SaveZametki();
+                    AnsiConsole.MarkupLine($"[green]Данные сохранены в файл: {zametkaManager.SavePath}[/]");
                     break;
                 case "0":
                     exit = true;
@@ -118,7 +124,7 @@ internal class Program
         AnsiConsole.MarkupLine("[yellow]Ты выбрал \"Просмотр списка заметок\"[/]");
         foreach (var zam in zametkaManager.Zametki)
         {
-            AnsiConsole.MarkupLine($"[green]ID:[/] {zam.Id}  [green]Заголовок:[/] {zam.Title}  [green]Дата создания:[/] {zam.CreateDate:yyyy-MM-dd}");
+            AnsiConsole.MarkupLine($"[green]ID:[/] {zam.Id}  [green]Заголовок:[/] {zam.Title} [green]Текст:[/] {zam.Words}  [green]Дата создания:[/] {zam.CreateDate:yyyy-MM-dd}");
         }
     }
 
@@ -169,7 +175,7 @@ internal class Program
 
     private static void UdZam(ZametkaManager zametkaManager)
     {
-        AnsiConsole.MarkupLine("[yellow] Ты выбрал пункт \"Добавление новой заметки\"[/]");
+        AnsiConsole.MarkupLine("[yellow] Ты выбрал пункт \"Удаление заметки\"[/]");
         string ud = Console.ReadLine();
         if (int.TryParse(ud, out int udNumb))
         {   
@@ -205,6 +211,122 @@ internal class Program
             tabl.AddRow(el.Id.ToString(), el.Title, el.Words, el.CreateDate.ToString("yyyy-MM-dd"));
         }
         AnsiConsole.Write(tabl);
+    }
+
+    private static void Sort(ZametkaManager zametkaManager)
+    {
+        AnsiConsole.MarkupLine("[green] Вы выбрали пункт \"Сортировка заметок\"[/]");
+        AnsiConsole.MarkupLine("Выберите один из двух вариантов:");
+        AnsiConsole.MarkupLine("1 - Сортировка по дате создания (уб/возр)");
+        AnsiConsole.MarkupLine("2 - Сортировка по заголовкам");
+        bool down = false;
+        bool up = true;
+        string input = Console.ReadLine();
+        switch (input)
+        {
+            case "1":
+                AnsiConsole.MarkupLine("Вы выбрали вариант \" Сортировка по дате создания\"");
+                AnsiConsole.MarkupLine("Выберете как будете сортировать: по возрастанию (1) или убывания (2) даты");
+                string input2 = Console.ReadLine();
+                switch (input2)
+                {
+                    case "1":
+                        var sortDateUp = SortZametka.ByDate(zametkaManager.Zametki, up).ToList();
+                        zametkaManager.Zametki = sortDateUp;
+                        AnsiConsole.MarkupLine("[green]Заметки отсортированы по дате создания.[/]");
+                        break;
+                    case "2":
+                        var sortDateDown = SortZametka.ByDate(zametkaManager.Zametki, down).ToList();
+                        zametkaManager.Zametki = sortDateDown;
+                        AnsiConsole.MarkupLine("[green]Заметки отсортированы по дате создания.[/]");
+                        break;
+                    default:
+                        AnsiConsole.MarkupLine("[red] Неправильный выбор![/]");
+                        return;
+                }
+                break;
+            case "2":
+                AnsiConsole.MarkupLine("Вы выбрали вариант \" Сортировка по заголовкам\"");
+                var sortedByTitle = SortZametka.ByLetter(zametkaManager.Zametki).ToList();
+                zametkaManager.Zametki = sortedByTitle;
+                AnsiConsole.MarkupLine("[green]Заметки отсортированы по заголовку (алфавитный порядок)[/]");
+                break;
+                
+        }
+    }
+
+    private static void Filtr(ZametkaManager zametkaManager)
+    {
+        AnsiConsole.MarkupLine("[green] Вы выбрали пункт \"Фильтрация заметок\"[/]");
+        AnsiConsole.MarkupLine("Выберите один из трех вариантов:");
+        AnsiConsole.MarkupLine("1 - Фильтрация по датам");
+        AnsiConsole.MarkupLine("2 - Фильтрация по ключевому слову в заголовке или в тексте");
+        AnsiConsole.MarkupLine("3 - Комбинированная фильтрация");
+        IEnumerable<Zametkapolya> filterZam = zametkaManager.Zametki;
+        string input = Console.ReadLine();
+        switch (input)
+        {
+            case "1":
+                AnsiConsole.MarkupLine("[blue]Введите начальную дату (ГГГГ-ММ-ДД):[/]");
+                if (!DateTime.TryParse(Console.ReadLine(), out DateTime startDate))
+                {
+                    AnsiConsole.MarkupLine("[red]Неверный формат даты.[/]");
+                    return;
+                }
+                AnsiConsole.MarkupLine("[blue]Введите конечную дату (ГГГГ-ММ-ДД):[/]");
+                if (!DateTime.TryParse(Console.ReadLine(), out DateTime endDate))
+                {
+                    AnsiConsole.MarkupLine("[red]Неверный формат даты.[/]");
+                    return;
+                }
+                var dateFilter = new FilterZametka.DateRangeFilter(startDate, endDate);
+                filterZam = dateFilter.ApplyFilter(filterZam);
+                break;
+            case "2":
+                AnsiConsole.MarkupLine("[blue]Введите ключевое слово для фильтрации:[/]");
+                string keyword = Console.ReadLine() ?? "";
+                if (string.IsNullOrWhiteSpace(keyword))
+                {
+                    AnsiConsole.MarkupLine("[red]Ключевое слово не может быть пустым.[/]");
+                    return;
+                }
+                var keywordFilter = new FilterZametka.KeywordFilter(keyword);
+                filterZam = keywordFilter.ApplyFilter(filterZam);
+                break;
+            case "3":
+                AnsiConsole.MarkupLine("[blue]Введите начальную дату (ГГГГ-ММ-ДД):[/]");
+                if (!DateTime.TryParse(Console.ReadLine(), out DateTime comboStart))
+                {
+                    AnsiConsole.MarkupLine("[red]Неверный формат даты.[/]");
+                    return;
+                }
+                AnsiConsole.MarkupLine("[blue]Введите конечную дату (ГГГГ-ММ-ДД):[/]");
+                if (!DateTime.TryParse(Console.ReadLine(), out DateTime comboEnd))
+                {
+                    AnsiConsole.MarkupLine("[red]Неверный формат даты.[/]");
+                    return;
+                }
+                AnsiConsole.MarkupLine("[blue]Введите ключевое слово для фильтрации:[/]");
+                string comboKeyword = Console.ReadLine() ?? "";
+                if (string.IsNullOrWhiteSpace(comboKeyword))
+                {
+                    AnsiConsole.MarkupLine("[red]Ключевое слово не может быть пустым.[/]");
+                    return;
+                }
+                var dateFilterCombo = new FilterZametka.DateRangeFilter(comboStart, comboEnd);
+                var keywordFilterCombo = new FilterZametka.KeywordFilter(comboKeyword);
+                var combinedFilter = new FilterZametka.KeywordFilter.CombinedFilter(new List<FilterZametka.IEnZametka> { dateFilterCombo, keywordFilterCombo });
+                filterZam = combinedFilter.ApplyFilter(filterZam);
+                break;
+            default:
+                AnsiConsole.MarkupLine("[red]Неверный выбор фильтрации.[/]");
+                return;
+        }
+    }
+
+    private static void Izm(ZametkaManager zametkaManager)
+    {
+        
     }
 
     // static void SozdCal(ZametkaManager zametkaManager)

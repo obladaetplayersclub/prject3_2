@@ -9,7 +9,7 @@ namespace ZametkaMan;
 
 public class ZametkaManager
 {
-   public List<Zametkapolya> Zametki { get; private set; } = new ();
+   public List<Zametkapolya> Zametki { get; set; } = new ();
    public string FilePath { get; private set; }
    public string SavePath { get; set; }
    
