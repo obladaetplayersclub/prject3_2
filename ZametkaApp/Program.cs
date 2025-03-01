@@ -175,7 +175,7 @@ internal class Program
         AnsiConsole.MarkupLine("Напиши заголовок");
         string title = Console.ReadLine();
         AnsiConsole.MarkupLine("Напиши текст данной заметки");
-        string words = ReadMultilineInput();
+        string words = MnogostrochniyVvod();
         var newZam = new Zametkapolya
         {
             Id = zametkaManager.GiveId(),
@@ -468,7 +468,7 @@ internal class Program
 
         AnsiConsole.MarkupLine(
             "[blue]Введите новый текст заметки (введите строки, для завершения введите строку [bold]END[/]):[/]");
-        string newContent = ReadMultilineInput();
+        string newContent = MnogostrochniyVvod();
         if (!string.IsNullOrWhiteSpace(newContent))
         {
             zam.Words = newContent;
@@ -477,13 +477,13 @@ internal class Program
         AnsiConsole.MarkupLine($"[green]Заметка с ID {zam.Id} успешно обновлена![/]");
     }
 
-    private static string ReadMultilineInput()
+    private static string MnogostrochniyVvod()
     {
         var lines = new List<string>();
         while (true)
         {
             string? line = Console.ReadLine();
-            if (line?.Trim().ToUpper() == "END")
+            if (line?.Trim().ToUpper() == "HSE")
                 break;
             lines.Add(line);
         }

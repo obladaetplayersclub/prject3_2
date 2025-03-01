@@ -47,11 +47,25 @@ public class ZametkaManager
 
    public int GiveId()
    {
-      return Zametki.Any() ? Zametki.Max(n => n.Id) + 1 : 1;
+      if (Zametki == null || Zametki.Count == 0)
+         return 1;
+
+      int maxId = Zametki[0].Id;
+      foreach (var zam in Zametki)
+      {
+         if (zam.Id > maxId)
+            maxId = zam.Id;
+      }
+      return maxId + 1;
    }
 
    public Zametkapolya? GetById(int id)
    {
-      return Zametki.FirstOrDefault(n => n.Id == id);
+      foreach (var zam in Zametki)
+      {
+         if (zam.Id == id)
+            return zam;
+      }
+      return null;
    }
 }
