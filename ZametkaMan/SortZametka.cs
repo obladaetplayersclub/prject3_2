@@ -30,8 +30,27 @@ public static class SortZametka
             : zametki.OrderByDescending(n => n, comparer);
     }
 
-    public static IEnumerable<Zametkapolya> ByLetter(IEnumerable<Zametkapolya> zametki)
+    public static List<Zametkapolya> ByLetter(IEnumerable<Zametkapolya> zametki)
     {
-        return zametki.OrderBy(n => n.Title, StringComparer.OrdinalIgnoreCase);
+        List<Zametkapolya> list = new List<Zametkapolya>(zametki);
+        
+        for (int i = 0; i < list.Count - 1; i++)
+        {
+            int minIndex = i;
+            for (int j = i + 1; j < list.Count; j++)
+            {
+                if (string.Compare(list[j].Title, list[minIndex].Title, StringComparison.CurrentCultureIgnoreCase) < 0)
+                {
+                    minIndex = j;
+                }
+            }
+            if (minIndex != i)
+            {
+                Zametkapolya temp = list[i];
+                list[i] = list[minIndex];
+                list[minIndex] = temp;
+            }
+        }
+        return list;
     }
 }

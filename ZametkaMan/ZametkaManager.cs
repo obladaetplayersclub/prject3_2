@@ -13,15 +13,15 @@ public class ZametkaManager
    public string FilePath { get; private set; }
    public string SavePath { get; set; }
    
-   private IZamLoader _loader;
-   private IZamSaver _saver;
+   private IZamLoader _zagr;
+   private IZamSaver _sohr;
 
-   public ZametkaManager(string loadFilePath, string saveFilePath, IZamLoader loader, IZamSaver saver)
+   public ZametkaManager(string loadFilePath, string saveFilePath, IZamLoader loD, IZamSaver saV)
    {
       FilePath = loadFilePath;
       SavePath = saveFilePath;
-      _loader = loader;
-      _saver = saver;
+      _zagr = loD;
+      _sohr = saV;
    }
    
 
@@ -29,7 +29,7 @@ public class ZametkaManager
    {
       if (File.Exists(FilePath))
       {
-         Zametki = _loader.Load(FilePath);
+         Zametki = _zagr.Load(FilePath);
          AnsiConsole.MarkupLine("[green]Заметки успешно загружены![/]");
       }
       else
@@ -39,9 +39,9 @@ public class ZametkaManager
       }
    }
 
-   public void SaveZametki()
+   public void SohrZametki()
    {
-      _saver.Save(SavePath, Zametki);
+      _sohr.Save(SavePath, Zametki);
       AnsiConsole.MarkupLine("[green]Заметки успешно сохранены![/]");
    }
 

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ZametkaApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+897586033fb66512041e18aa14992e1775cd0f48")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+654effb6e96570ca6ce9b51e09887a3ed3f72b44")]
 [assembly: System.Reflection.AssemblyProductAttribute("ZametkaApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ZametkaApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

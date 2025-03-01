@@ -24,7 +24,7 @@ public class FilterZametka
             return notes.Where(n => n.CreateDate.Date >= StartDate && n.CreateDate.Date <= EndDate);
         }
     }
-    
+
     public class KeywordFilter : IEnZametka
     {
         public string Keyword { get; }
@@ -39,24 +39,24 @@ public class FilterZametka
             return notes.Where(n => n.Title.IndexOf(Keyword, StringComparison.OrdinalIgnoreCase) >= 0
                                     || n.Words.IndexOf(Keyword, StringComparison.OrdinalIgnoreCase) >= 0);
         }
-        
-        public class CombinedFilter : IEnZametka
+    }
+
+    public class CombinedFilter : IEnZametka
+    {
+        private readonly IEnumerable<IEnZametka> zametkas;
+
+        public CombinedFilter(IEnumerable<IEnZametka> filters)
         {
-            private readonly IEnumerable<IEnZametka> zametkas;
+            zametkas = filters;
+        }
 
-            public CombinedFilter(IEnumerable<IEnZametka> filters)
+        public IEnumerable<Zametkapolya> ApplyFilter(IEnumerable<Zametkapolya> zametki)
+        {
+            foreach (var zam in zametkas)
             {
-                zametkas = filters;
+                zametki = zam.ApplyFilter(zametki);
             }
-
-            public IEnumerable<Zametkapolya> ApplyFilter(IEnumerable<Zametkapolya> zametki)
-            {
-                foreach (var zam in zametkas)
-                {
-                    zametki = zam.ApplyFilter(zametki);
-                }
-                return zametki;
-            }
+            return zametki;
         }
     }
 }
