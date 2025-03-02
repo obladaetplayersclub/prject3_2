@@ -1,0 +1,13 @@
+/Users/konstantinokriashvili/RiderProjects/Project3mod_2/Zametka/bin/Debug/net8.0/Zametka.deps.json
+/Users/konstantinokriashvili/RiderProjects/Project3mod_2/Zametka/bin/Debug/net8.0/Zametka.dll
+/Users/konstantinokriashvili/RiderProjects/Project3mod_2/Zametka/bin/Debug/net8.0/Zametka.pdb
+/Users/konstantinokriashvili/RiderProjects/Project3mod_2/Zametka/obj/Debug/net8.0/Zametka.csproj.AssemblyReference.cache
+/Users/konstantinokriashvili/RiderProjects/Project3mod_2/Zametka/obj/Debug/net8.0/Zametka.GeneratedMSBuildEditorConfig.editorconfig
+/Users/konstantinokriashvili/RiderProjects/Project3mod_2/Zametka/obj/Debug/net8.0/Zametka.AssemblyInfoInputs.cache
+/Users/konstantinokriashvili/RiderProjects/Project3mod_2/Zametka/obj/Debug/net8.0/Zametka.AssemblyInfo.cs
+/Users/konstantinokriashvili/RiderProjects/Project3mod_2/Zametka/obj/Debug/net8.0/Zametka.csproj.CoreCompileInputs.cache
+/Users/konstantinokriashvili/RiderProjects/Project3mod_2/Zametka/obj/Debug/net8.0/Zametka.sourcelink.json
+/Users/konstantinokriashvili/RiderProjects/Project3mod_2/Zametka/obj/Debug/net8.0/Zametka.dll
+/Users/konstantinokriashvili/RiderProjects/Project3mod_2/Zametka/obj/Debug/net8.0/refint/Zametka.dll
+/Users/konstantinokriashvili/RiderProjects/Project3mod_2/Zametka/obj/Debug/net8.0/Zametka.pdb
+/Users/konstantinokriashvili/RiderProjects/Project3mod_2/Zametka/obj/Debug/net8.0/ref/Zametka.dll

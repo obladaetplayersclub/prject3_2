@@ -1,0 +1,16 @@
+/Users/konstantinokriashvili/RiderProjects/Project3mod_2/LoadFile/bin/Debug/net8.0/LoadFile.deps.json
+/Users/konstantinokriashvili/RiderProjects/Project3mod_2/LoadFile/bin/Debug/net8.0/LoadFile.dll
+/Users/konstantinokriashvili/RiderProjects/Project3mod_2/LoadFile/bin/Debug/net8.0/LoadFile.pdb
+/Users/konstantinokriashvili/RiderProjects/Project3mod_2/LoadFile/bin/Debug/net8.0/Zametka.dll
+/Users/konstantinokriashvili/RiderProjects/Project3mod_2/LoadFile/bin/Debug/net8.0/Zametka.pdb
+/Users/konstantinokriashvili/RiderProjects/Project3mod_2/LoadFile/obj/Debug/net8.0/LoadFile.csproj.AssemblyReference.cache
+/Users/konstantinokriashvili/RiderProjects/Project3mod_2/LoadFile/obj/Debug/net8.0/LoadFile.GeneratedMSBuildEditorConfig.editorconfig
+/Users/konstantinokriashvili/RiderProjects/Project3mod_2/LoadFile/obj/Debug/net8.0/LoadFile.AssemblyInfoInputs.cache
+/Users/konstantinokriashvili/RiderProjects/Project3mod_2/LoadFile/obj/Debug/net8.0/LoadFile.AssemblyInfo.cs
+/Users/konstantinokriashvili/RiderProjects/Project3mod_2/LoadFile/obj/Debug/net8.0/LoadFile.csproj.CoreCompileInputs.cache
+/Users/konstantinokriashvili/RiderProjects/Project3mod_2/LoadFile/obj/Debug/net8.0/LoadFile.sourcelink.json
+/Users/konstantinokriashvili/RiderProjects/Project3mod_2/LoadFile/obj/Debug/net8.0/LoadFile.csproj.Up2Date
+/Users/konstantinokriashvili/RiderProjects/Project3mod_2/LoadFile/obj/Debug/net8.0/LoadFile.dll
+/Users/konstantinokriashvili/RiderProjects/Project3mod_2/LoadFile/obj/Debug/net8.0/refint/LoadFile.dll
+/Users/konstantinokriashvili/RiderProjects/Project3mod_2/LoadFile/obj/Debug/net8.0/LoadFile.pdb
+/Users/konstantinokriashvili/RiderProjects/Project3mod_2/LoadFile/obj/Debug/net8.0/ref/LoadFile.dll

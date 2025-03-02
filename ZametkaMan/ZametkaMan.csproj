@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\LoadFile\LoadFile.csproj" />
+      <ProjectReference Include="..\SaveFile\SaveFile.csproj" />
+      <ProjectReference Include="..\Zametka\Zametka.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Google.Apis.Drive.v3" Version="1.69.0.3699" />
+    </ItemGroup>
+
+</Project>

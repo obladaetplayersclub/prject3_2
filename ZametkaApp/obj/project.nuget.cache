@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "dgSpecHash": "JUEZwr2o6vk=",
+  "success": true,
+  "projectFilePath": "/Users/konstantinokriashvili/RiderProjects/Project3mod_2/ZametkaApp/ZametkaApp.csproj",
+  "expectedPackageFiles": [
+    "/Users/konstantinokriashvili/.nuget/packages/google.apis/1.69.0/google.apis.1.69.0.nupkg.sha512",
+    "/Users/konstantinokriashvili/.nuget/packages/google.apis.auth/1.69.0/google.apis.auth.1.69.0.nupkg.sha512",
+    "/Users/konstantinokriashvili/.nuget/packages/google.apis.core/1.69.0/google.apis.core.1.69.0.nupkg.sha512",
+    "/Users/konstantinokriashvili/.nuget/packages/google.apis.drive.v3/1.69.0.3699/google.apis.drive.v3.1.69.0.3699.nupkg.sha512",
+    "/Users/konstantinokriashvili/.nuget/packages/newtonsoft.json/13.0.3/newtonsoft.json.13.0.3.nupkg.sha512",
+    "/Users/konstantinokriashvili/.nuget/packages/spectre.console/0.49.2-preview.0.76/spectre.console.0.49.2-preview.0.76.nupkg.sha512",
+    "/Users/konstantinokriashvili/.nuget/packages/system.codedom/7.0.0/system.codedom.7.0.0.nupkg.sha512",
+    "/Users/konstantinokriashvili/.nuget/packages/system.management/7.0.2/system.management.7.0.2.nupkg.sha512"
+  ],
+  "logs": []
+}
