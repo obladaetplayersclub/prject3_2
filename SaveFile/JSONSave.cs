@@ -2,6 +2,10 @@ using Zametka;
 using System.Text.Json;
 namespace SaveFile;
 
+/// <summary>
+/// Класс для сохранения заметок в JSON файл
+/// Используем стандартную сериализацию через библиотекуSystem.Text.Json для преобразования заметок в JSON формат
+/// </summary>
 public class JSONSave : IZamSaver
 {
     public void Save(string filePath, IEnumerable<Zametkapolya> notes)

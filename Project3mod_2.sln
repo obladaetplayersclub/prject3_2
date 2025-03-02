@@ -2,7 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zametka", "Zametka\Zametka.csproj", "{C03D8BDB-45C5-492E-9268-2B9B849307E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZametkaApp", "ZametkaApp\ZametkaApp.csproj", "{0E3E3C7A-778D-4EFD-970D-F44FA5C4E02B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZametkaPril", "ZametkaPril\ZametkaPril.csproj", "{0E3E3C7A-778D-4EFD-970D-F44FA5C4E02B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoadFile", "LoadFile\LoadFile.csproj", "{BF2FB59A-0E84-4B2D-9A2C-5543FF27F058}"
 EndProject

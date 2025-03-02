@@ -8,7 +8,7 @@ using SaveFile;
 namespace ZametkaMan;
 
 public class ZametkaManager
-{
+{  
    public List<Zametkapolya> Zametki { get; set; } = new ();
    public string FilePath { get; private set; }
    public string SavePath { get; set; }

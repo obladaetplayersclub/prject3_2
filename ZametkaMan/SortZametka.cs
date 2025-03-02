@@ -1,9 +1,25 @@
 namespace Zametka;
 
+/// <summary>
+/// Класс предоставляющий сортивроку заметок по датам создания (возр/уб) и заголовку (алф порядок)
+/// </summary>
 public static class SortZametka
 {   
+    
+    /// <summary>
+    /// Сравнение сначала по году, затем по месяцу, в конечном случае по дню
+    /// </summary>
     public class ZamDateComparer : IComparer<Zametkapolya>
-    {
+    {   
+        /// <summary>
+        /// Сравнивает две заметки по дате создания
+        /// </summary>
+        /// <param name="x">Первая заметка</param>
+        /// <param name="y">Вторая заметка</param>
+        /// <returns>
+        /// Возвращает 0, если даты создания обеих заметок равны; отрицательное число, если дата создания <paramref name="x"/> меньше,
+        /// чем дата создания <paramref name="y"/>; положительное число, если дата создания <paramref name="x"/> больше, чем дата создания <paramref name="y"/>.
+        /// </returns>
         public int Compare(Zametkapolya? x, Zametkapolya? y)
         {
             if (x == null && y == null) return 0;
@@ -22,6 +38,12 @@ public static class SortZametka
         }
     }
     
+    /// <summary>
+    /// Сортирует заметки по дате создания
+    /// Параметр upDownDate - параметр, отвечающий за то как будем сортировать даты создания:
+    /// true - по возрастанию
+    /// false - по убыванию
+    /// </summary>
     public static IEnumerable<Zametkapolya> ByDate(IEnumerable<Zametkapolya> zametki, bool upDownDate = false /* false- по убыванию, true - по возрастанию */)
     {
         var comparer = new ZamDateComparer();
@@ -29,8 +51,11 @@ public static class SortZametka
             ? zametki.OrderBy(n => n, comparer) 
             : zametki.OrderByDescending(n => n, comparer);
     }
-
-    public static List<Zametkapolya> ByLetter(IEnumerable<Zametkapolya> zametki)
+    
+    /// <summary>
+    /// Сортировка заметок по заголовку в алфавитном порядке
+    /// </summary>
+    public static List<Zametkapolya> PervBuk(IEnumerable<Zametkapolya> zametki)
     {
         List<Zametkapolya> list = new List<Zametkapolya>(zametki);
         
