@@ -15,9 +15,9 @@ public class ZametkaManager
    
    private IZamLoader _zagr;
    private IZamSaver _sohr;
-
+   
    public ZametkaManager(string loadFilePath, string saveFilePath, IZamLoader loD, IZamSaver saV)
-   {
+   {  
       FilePath = loadFilePath;
       SavePath = saveFilePath;
       _zagr = loD;

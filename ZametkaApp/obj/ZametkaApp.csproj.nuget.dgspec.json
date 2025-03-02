@@ -305,6 +305,12 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "Google.Apis.Drive.v3": {
+              "target": "Package",
+              "version": "[1.69.0.3699, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

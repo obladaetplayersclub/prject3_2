@@ -12,4 +12,8 @@
       <ProjectReference Include="..\Zametka\Zametka.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Google.Apis.Drive.v3" Version="1.69.0.3699" />
+    </ItemGroup>
+
 </Project>

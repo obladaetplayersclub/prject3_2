@@ -4,59 +4,75 @@ namespace ZametkaMan;
 public class FilterZametka
 {
     public interface IEnZametka
-    {
-        IEnumerable<Zametkapolya> ApplyFilter(IEnumerable<Zametkapolya> notes);
-    }
+        {
+            IEnumerable<Zametkapolya> PrimFilt(IEnumerable<Zametkapolya> zam);
+        }
     
-    public class DateRangeFilter : IEnZametka
-    {
-        public DateTime StartDate { get; }
-        public DateTime EndDate { get; }
-
-        public DateRangeFilter(DateTime startDate, DateTime endDate)
+        public class DateRangeFilter : IEnZametka
         {
-            StartDate = startDate.Date;
-            EndDate = endDate.Date;
-        }
+            public DateTime StartDate { get; }
+            public DateTime EndDate { get; }
 
-        public IEnumerable<Zametkapolya> ApplyFilter(IEnumerable<Zametkapolya> notes)
-        {
-            return notes.Where(n => n.CreateDate.Date >= StartDate && n.CreateDate.Date <= EndDate);
-        }
-    }
-
-    public class KeywordFilter : IEnZametka
-    {
-        public string Keyword { get; }
-
-        public KeywordFilter(string keyword)
-        {
-            Keyword = keyword;
-        }
-
-        public IEnumerable<Zametkapolya> ApplyFilter(IEnumerable<Zametkapolya> notes)
-        {
-            return notes.Where(n => n.Title.IndexOf(Keyword, StringComparison.OrdinalIgnoreCase) >= 0
-                                    || n.Words.IndexOf(Keyword, StringComparison.OrdinalIgnoreCase) >= 0);
-        }
-    }
-
-    public class CombinedFilter : IEnZametka
-    {
-        private readonly IEnumerable<IEnZametka> zametkas;
-
-        public CombinedFilter(IEnumerable<IEnZametka> filters)
-        {
-            zametkas = filters;
-        }
-
-        public IEnumerable<Zametkapolya> ApplyFilter(IEnumerable<Zametkapolya> zametki)
-        {
-            foreach (var zam in zametkas)
+            public DateRangeFilter(DateTime startDate, DateTime endDate)
             {
-                zametki = zam.ApplyFilter(zametki);
+                StartDate = startDate.Date;
+                EndDate = endDate.Date;
             }
-            return zametki;
+
+            public IEnumerable<Zametkapolya> PrimFilt(IEnumerable<Zametkapolya> zam)
+            {
+                List<Zametkapolya> результат = new List<Zametkapolya>();
+                foreach (var el in zam)
+                {
+                    if (el.CreateDate.Date >= StartDate && el.CreateDate.Date <= EndDate)
+                    {
+                        результат.Add(el);
+                    }
+                }
+                return результат;
+            }
         }
-    }
+        public class KluchSlov : IEnZametka
+        {
+            public string Kluch { get; }
+
+            public KluchSlov(string keyword)
+            {
+                Kluch = keyword;
+            }
+
+            public IEnumerable<Zametkapolya> PrimFilt(IEnumerable<Zametkapolya> zam)
+            {
+                List<Zametkapolya> zametkis = new List<Zametkapolya>();
+                foreach (var el in zam)
+                {
+                    if ((el.Title != null && el.Title.IndexOf(Kluch, StringComparison.OrdinalIgnoreCase) >= 0)
+                        || (el.Words != null && el.Words.IndexOf(Kluch, StringComparison.OrdinalIgnoreCase) >= 0))
+                    {
+                        zametkis.Add(el);
+                    }
+                }
+                return zametkis;
+            }
+        }
+        
+        public class CombinedFilter : IEnZametka
+        {
+            private readonly IEnumerable<IEnZametka> flit;
+
+            public CombinedFilter(IEnumerable<IEnZametka> filters)
+            {
+                flit = filters;
+            }
+
+            public IEnumerable<Zametkapolya> PrimFilt(IEnumerable<Zametkapolya> zamtk)
+            {
+                IEnumerable<Zametkapolya> res = zamtk;
+                foreach (var el in flit)
+                {
+                    res = el.PrimFilt(res);
+                }
+                return res;
+            }
+        }
 }

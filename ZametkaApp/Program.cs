@@ -92,7 +92,7 @@ internal class Program
                     IskSyn(zametkaManager).GetAwaiter().GetResult();
                     break;
                 case "11":
-                    
+                    // SyncGoogleDrive(zametkaManager.CsvSavePath, zametkaManager.JsonSavePath);
                     break;
                 case "12":
                     zametkaManager.SohrZametki();
@@ -265,7 +265,7 @@ internal class Program
                     return;
                 }
                 var dateFilter = new FilterZametka.DateRangeFilter(startDate, endDate);
-                tableData = dateFilter.ApplyFilter(tableData);
+                tableData = dateFilter.PrimFilt(tableData);
             }
             else if (filterType == "По ключевому слову")
             {
@@ -276,8 +276,8 @@ internal class Program
                     AnsiConsole.MarkupLine("[red]Ключевое слово не может быть пустым.[/]");
                     return;
                 }
-                var keywordFilter = new FilterZametka.KeywordFilter(keyword);
-                tableData = keywordFilter.ApplyFilter(tableData);
+                var keywordFilter = new FilterZametka.KluchSlov(keyword);
+                tableData = keywordFilter.PrimFilt(tableData);
             }
             else if (filterType == "Комбинированная")
             {
@@ -301,9 +301,9 @@ internal class Program
                     return;
                 }
                 var dateFilterCombo = new FilterZametka.DateRangeFilter(comboStart, comboEnd);
-                var keywordFilterCombo = new FilterZametka.KeywordFilter(comboKeyword);
+                var keywordFilterCombo = new FilterZametka.KluchSlov(comboKeyword);
                 var combinedFilter = new FilterZametka.CombinedFilter(new List<FilterZametka.IEnZametka> { dateFilterCombo, keywordFilterCombo });
-                tableData = combinedFilter.ApplyFilter(tableData);
+                tableData = combinedFilter.PrimFilt(tableData);
             }
         }
         var tabl = new Table()
@@ -391,7 +391,7 @@ internal class Program
                 }
 
                 var dateFilter = new FilterZametka.DateRangeFilter(startDate, endDate);
-                filterZam = dateFilter.ApplyFilter(filterZam);
+                filterZam = dateFilter.PrimFilt(filterZam);
                 break;
             case "2":
                 AnsiConsole.MarkupLine("[blue]Введите ключевое слово для фильтрации:[/]");
@@ -402,8 +402,8 @@ internal class Program
                     return;
                 }
 
-                var keywordFilter = new FilterZametka.KeywordFilter(keyword);
-                filterZam = keywordFilter.ApplyFilter(filterZam);
+                var keywordFilter = new FilterZametka.KluchSlov(keyword);
+                filterZam = keywordFilter.PrimFilt(filterZam);
                 break;
             case "3":
                 AnsiConsole.MarkupLine("[blue]Введите начальную дату (ГГГГ-ММ-ДД):[/]");
@@ -429,13 +429,13 @@ internal class Program
                 }
 
                 var dateFilterCombo = new FilterZametka.DateRangeFilter(comboStart, comboEnd);
-                var keywordFilterCombo = new FilterZametka.KeywordFilter(comboKeyword);
+                var keywordFilterCombo = new FilterZametka.KluchSlov(comboKeyword);
                 var combinedFilter = new FilterZametka.CombinedFilter(new List<FilterZametka.IEnZametka>
                     { dateFilterCombo, keywordFilterCombo });
-                filterZam = combinedFilter.ApplyFilter(filterZam);
+                filterZam = combinedFilter.PrimFilt(filterZam);
                 break;
             default:
-                AnsiConsole.MarkupLine("[red]Неверный выбор фильтрации.[/]");
+                AnsiConsole.MarkupLine("[red]Неверный выбор варианта фильтрации[/]");
                 return;
         }
     }
@@ -454,12 +454,12 @@ internal class Program
         var zam = zametkaManager.GetById(id);
         if (zam == null)
         {
-            AnsiConsole.MarkupLine($"[red]Заметка с ID {id} не найдена.[/]");
+            AnsiConsole.MarkupLine($"[red]Заметка с таким  {id} не найдена![/]");
             return;
         }
 
         AnsiConsole.MarkupLine($"[blue]Текущий заголовок: {zam.Title}[/]");
-        AnsiConsole.MarkupLine("[blue]Введите новый заголовок (оставьте пустым, чтобы сохранить текущий):[/]");
+        AnsiConsole.MarkupLine("[blue]Введите новый заголовок. Можете оставить пустым, тогда он не иземенится:[/]");
         string newTitle = Console.ReadLine() ?? "";
         if (!string.IsNullOrWhiteSpace(newTitle))
         {
@@ -467,14 +467,14 @@ internal class Program
         }
 
         AnsiConsole.MarkupLine(
-            "[blue]Введите новый текст заметки (введите строки, для завершения введите строку [bold]END[/]):[/]");
+            "[blue]Введите новый текст заметки. Для завершения введите строку [bold]HSE[/]):[/]");
         string newContent = MnogostrochniyVvod();
         if (!string.IsNullOrWhiteSpace(newContent))
         {
             zam.Words = newContent;
         }
 
-        AnsiConsole.MarkupLine($"[green]Заметка с ID {zam.Id} успешно обновлена![/]");
+        AnsiConsole.MarkupLine($"[green]Заметка с номером {zam.Id} успешно обновлена![/]");
     }
 
     private static string MnogostrochniyVvod()
@@ -602,5 +602,17 @@ internal class Program
                 
             }
         }
+    }
+    
+    public static void SyncGoogleDrive(string localCsvPath, string localJsonPath)
+    {
+        AnsiConsole.MarkupLine("[blue]Выберите формат для синхронизации с Google Drive:[/]");
+        AnsiConsole.MarkupLine("1. CSV");
+        AnsiConsole.MarkupLine("2. JSON");
+        string? choice = Console.ReadLine();
+
+        string fileToSync = choice == "2" ? localJsonPath : localCsvPath;
+        var manager = new CloudSyncManager();
+        manager.SyncFile(fileToSync);
     }
 }
